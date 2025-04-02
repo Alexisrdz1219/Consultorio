@@ -15,23 +15,13 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -61,14 +51,14 @@ const app = (0, express_1.default)();
 app.use((0, helmet_1.default)());
 // 🔒 Configuración de rate limit
 const limiter = (0, express_rate_limit_1.default)({
-    windowMs: 15 * 60 * 1000, // 15 minutos
-    max: 100, // Límite de 100 solicitudes por IP
+    windowMs: 15 * 60 * 1000,
+    max: 100,
     message: "🚫 Demasiadas solicitudes desde esta IP. Intenta de nuevo más tarde.",
 });
 app.use(limiter);
 // 🛡️ Configuración de CORS
 app.use((0, cors_1.default)({
-    origin: "http://localhost:5173", // Actualiza esto según el frontend en producción
+    origin: "http://localhost:5173",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
 }));
@@ -101,7 +91,7 @@ app.listen(PORT, () => {
 });
 // Configurar CORS para permitir varios orígenes
 const corsOptions = {
-    origin: ['http://localhost:5173', 'http://localhost:5174'], // Permitir ambos orígenes
+    origin: ['http://localhost:5173', 'http://localhost:5174'],
     methods: 'GET,POST,PUT,DELETE',
     credentials: true, // Permitir cookies si es necesario
 };
